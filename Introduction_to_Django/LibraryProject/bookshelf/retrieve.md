@@ -1,11 +1,10 @@
 # Retrieve Operation
 
-```python
 from bookshelf.models import Book
 
-books = Book.objects.all()
-for b in books:
-    print(b.id, b.title, b.author, b.publication_year)
+# Retrieve the book
+book = Book.objects.get(title="1984")
 
-# Output:
-# 1 1984 George Orwell 1949
+# Display all attributes
+book.title, book.author, book.publication_year
+# Expected Output: ('1984', 'George Orwell', 1949)
