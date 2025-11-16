@@ -1,0 +1,31 @@
+{# LibraryProject/bookshelf/templates/bookshelf/form_example.html #}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Book Form</title>
+</head>
+<body>
+  <h1>{% if book %}Edit{% else %}Create{% endif %} Book</h1>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div>
+      {{ form.title.label_tag }}<br>
+      {{ form.title }}
+      {{ form.title.errors }}
+    </div>
+    <div>
+      {{ form.author.label_tag }}<br>
+      {{ form.author }}
+      {{ form.author.errors }}
+    </div>
+    <div>
+      {{ form.published_date.label_tag }}<br>
+      {{ form.published_date }}
+      {{ form.published_date.errors }}
+    </div>
+    <button type="submit">Save</button>
+  </form>
+</body>
+</html>

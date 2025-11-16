@@ -124,3 +124,77 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+
+
+# DEBUG: MUST be False in production
+# Use an environment variable to control debug: default to False for safety
+DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() in ("1", "true", "yes")
+
+# Allowed hosts: set to your domain(s) in production
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+
+# SECURITY: Cookie & header protections
+# Prevent browser XSS filtering issues
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevent clickjacking
+X_FRAME_OPTIONS = "DENY"
+
+# Prevent MIME-based attacks
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Ensure cookies are only sent over HTTPS in production
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# Consider making cookies inaccessible to JavaScript if appropriate
+CSRF_COOKIE_HTTPONLY = False  # usually False so JS frameworks can read token from cookie; set True only if your setup reads token server-side only
+SESSION_COOKIE_HTTPONLY = True
+
+# Redirect all non-HTTPS requests to HTTPS (enable in production behind HTTPS)
+SECURE_SSL_REDIRECT = os.getenv("SECURE_SSL_REDIRECT", "False").lower() in ("1", "true", "yes")
+
+# HTTP Strict Transport Security (HSTS) — enable carefully in production
+SECURE_HSTS_SECONDS = int(os.getenv("SECURE_HSTS_SECONDS", "0"))  # e.g. 31536000 for 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = False
+
+# Content Security Policy via django-csp (optional). See Middleware below.
+# If using django-csp, add 'csp' to INSTALLED_APPS and set CSP_* settings.
+# Minimal safe defaults (tune to your needs):
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'",)         # Add trusted 3rd-party domains if needed
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'")  # If you require inline styles, remove 'unsafe-inline' where possible
+CSP_IMG_SRC = ("'self'", "data:")
+CSP_FONT_SRC = ("'self'",)
+CSP_CONNECT_SRC = ("'self'",)
+
+# Media (if you use profile images)
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+
+# AUTHENTICATION_BACKENDS - keep defaults unless customizing
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# Logging: catch security-related warnings in production (example)
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {'class': 'logging.StreamHandler',},
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+}
+
+# NOTE: On local development, you may keep DEBUG=True by exporting DJANGO_DEBUG=True.
+# In production ensure DEBUG=False and configure ALLOWED_HOSTS and SSL settings.

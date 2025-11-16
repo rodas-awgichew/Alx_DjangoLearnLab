@@ -1,4 +1,26 @@
-<h1>Books</h1>
-{% for book in books %}
-    <p>{{ book.title }} — {{ book.author }}</p>
-{% endfor %}
+{# LibraryProject/bookshelf/templates/bookshelf/book_list.html #}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Bookshelf</title>
+  {# Avoid inline scripts/styles where possible. Use external files or CSP allowances. #}
+</head>
+<body>
+  <h1>Books</h1>
+
+  <form method="get">
+    {% csrf_token %}
+    {{ form.q }}
+    <button type="submit">Search</button>
+  </form>
+
+  <ul>
+  {% for book in books %}
+    <li>{{ book.title|escape }} — {{ book.author|escape }}</li>
+  {% empty %}
+    <li>No books found.</li>
+  {% endfor %}
+  </ul>
+</body>
+</html>
