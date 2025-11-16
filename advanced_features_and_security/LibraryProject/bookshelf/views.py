@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.db.models import Q
 from django.core.exceptions import ValidationError
 from django.utils.html import escape
+from .forms import ExampleForm
 
 from .models import Book
 from .forms import SearchForm   # Use forms for safe input handling

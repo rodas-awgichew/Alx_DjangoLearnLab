@@ -37,3 +37,8 @@ class BookForm(forms.ModelForm):
         if pub and pub > datetime.date.today():
             raise ValidationError("Published date cannot be in the future.")
         return pub
+
+
+class ExampleForm(forms.Form):
+    title = forms.CharField(max_length=100, label="Book Title")
+    author = forms.CharField(max_length=100, label="Author Name")
