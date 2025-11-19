@@ -34,9 +34,6 @@ Explore the provided modules and experiment with Django features.
 
 Pull requests are welcome. Open an issue first to suggest significant changes.
 
-## License
-
-No specific license provided.
 
 ## Author
 
