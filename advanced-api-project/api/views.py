@@ -1,10 +1,10 @@
 from rest_framework import generics, permissions
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .models import Book
 from .serializers import BookSerializer
 
 
 # List all books (Read-only, open to everyone)
-
 class BookListView(generics.ListAPIView):
     """
     Returns a list of all books.
@@ -17,7 +17,6 @@ class BookListView(generics.ListAPIView):
 
 
 # Retrieve a single book by ID (Read-only)
-
 class BookDetailView(generics.RetrieveAPIView):
     """
     Returns a single book based on its primary key (ID).
@@ -29,7 +28,6 @@ class BookDetailView(generics.RetrieveAPIView):
 
 
 # Create a new book (Authenticated users only)
-
 class BookCreateView(generics.CreateAPIView):
     """
     Creates a new Book entry.
@@ -37,15 +35,13 @@ class BookCreateView(generics.CreateAPIView):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
-    # Custom behavior: log the creation or modify request data if needed.
     def perform_create(self, serializer):
         serializer.save()
 
 
 # Update a book (Authenticated users only)
-
 class BookUpdateView(generics.UpdateAPIView):
     """
     Updates an existing Book.
@@ -53,17 +49,13 @@ class BookUpdateView(generics.UpdateAPIView):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def perform_update(self, serializer):
-        """
-        Custom logic before updating an object.
-        """
         serializer.save()
 
 
 # Delete a book (Authenticated users only)
-
 class BookDeleteView(generics.DestroyAPIView):
     """
     Deletes a Book.
@@ -71,4 +63,4 @@ class BookDeleteView(generics.DestroyAPIView):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
