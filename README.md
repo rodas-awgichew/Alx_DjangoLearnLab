@@ -13,6 +13,7 @@ A simple public Django learning lab to practice and demonstrate Django concepts 
 1. **Prerequisites**:
     - Python (recommended 3.8+)
     - Django framework
+    - Django REST framework
 
 2. **Installation**:
     - Ensure you have Python and Django installed.
