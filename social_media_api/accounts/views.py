@@ -9,8 +9,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics, permissions
 from django.contrib.auth import get_user_model
 
-from .models import Post
-from .serializers import PostSerializer
+from posts.models import Post
+from posts.serializers import PostSerializer
+
 
 class RegisterView(APIView):
     permission_classes = []
