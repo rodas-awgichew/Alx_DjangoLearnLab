@@ -33,9 +33,10 @@ Explore the provided modules and experiment with Django features.
 
 ## Contributing
 
-Pull requests are welcome. Open an issue first to suggest significant changes.
-
+Pull requests are welcome. Open an issue first to suggest significant change
 
 ## Author
 
 - [rodas-awgichew](https://github.com/rodas-awgichew)
+
+Thank you!
